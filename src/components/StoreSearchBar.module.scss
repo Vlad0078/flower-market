@@ -1,0 +1,25 @@
+.searchbar {
+  display: flex;
+}
+
+.store-form {
+  flex-grow: 1;
+  display: flex;
+  gap: 0.875rem;
+  padding-left: 0.875rem;
+  padding-top: 0.875rem;
+  overflow: hidden;
+
+  transition: max-width, padding;
+  transition-duration: 300ms;
+
+  @media (min-width: 768px) {
+    max-width: clamp(15.625rem, 5.208rem + 21.7vw, 31.25rem);
+    padding-top: 0;
+  }
+}
+
+.closed {
+  max-width: 0;
+  padding: 0;
+}

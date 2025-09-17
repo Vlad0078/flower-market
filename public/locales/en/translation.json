@@ -1,0 +1,56 @@
+{
+  "header": {
+    "shop": "Shop",
+    "shopping-cart": "Shopping Cart"
+  },
+  "header-menu": "Menu",
+  "flower": {
+    "buy-now": "Buy now",
+    "add-to-cart": "Add to cart",
+    "search-placeholder": "Search flowers"
+  },
+  "loading": "Loading",
+  "search-form": {
+    "search-btn": "Search"
+  },
+  "sort-options": {
+    "price": "Sort by price",
+    "date": "Sort by date",
+    "price--short": "By price",
+    "date--short": "By date"
+  },
+  "stores": {
+    "hide-stores-btn": "Hide",
+    "show-stores-btn": "Stores"
+  },
+  "store": {
+    "search-placeholder": "Search store"
+  },
+  "cart-form": {
+    "phone": "Phone",
+    "email": "Email",
+    "invalid-email": "Please enter a valid Email",
+    "invalid-phone": "Please enter a valid phone number",
+    "name-placeholder": "John Smith",
+    "invalid-name": "Please enter your name",
+    "name": "Name",
+    "address": "Delivery address",
+    "address-placeholder": "Pushkin Street, Kolotushkin’s House",
+    "invalid-address": "Please enter a valid address",
+    "order-btn": "Order",
+    "total": "Total price"
+  },
+  "currency": {
+    "uah": "UAH"
+  },
+  "cart": {
+    "qty-label": "Quantity"
+  },
+  "order-details-page": {
+    "title": "Order Details",
+    "order": "Order",
+    "total": "Total",
+    "delivery-address": "Delivery address",
+    "date": "Date"
+  }
+}

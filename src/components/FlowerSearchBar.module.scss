@@ -1,0 +1,52 @@
+.searchbar {
+  display: flex;
+}
+
+.flower-form {
+  flex-grow: 1;
+  flex-wrap: wrap;
+  display: flex;
+  justify-content: center;
+  gap: 0.875rem;
+  overflow: hidden;
+}
+
+.serch-wrapper {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  gap: 0.875rem;
+}
+
+.flower-input {
+  min-width: 180px;
+  max-width: 600px;
+}
+
+.sort-options {
+  display: flex;
+}
+
+.sort-option {
+  display: flex;
+  color: var(--chakra-colors-fg-muted);
+  font-size: 1rem;
+}
+
+.sort-option-text {
+  display: none;
+
+  @media (min-width: 440px) {
+    display: block;
+  }
+}
+.sort-option-text--short {
+  display: block;
+  @media (min-width: 440px) {
+    display: none;
+  }
+}
+
+.sort-option--active {
+  color: var(--chakra-colors-fg);
+}

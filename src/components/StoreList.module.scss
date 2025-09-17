@@ -1,0 +1,82 @@
+.drawer-wrapper {
+  position: absolute;
+  z-index: 10;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  width: auto;
+
+  @media (min-width: 768px) {
+    position: static;
+  }
+}
+
+.drawer-main {
+  flex-grow: 1;
+  display: flex;
+  align-items: stretch;
+  overflow: hidden;
+}
+
+.stores-wrapper {
+  height: 100%;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  overflow: hidden;
+}
+
+.stores-box-shadow {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.store-list {
+  flex: 1;
+  width: clamp(15.625rem, 5.208rem + 21.7vw, 31.25rem);
+  max-width: 100vw;
+  overflow-y: auto;
+  height: 100%;
+  padding: 0.875rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  gap: 0.875rem;
+
+  transition: width, padding;
+  transition-duration: 300ms;
+
+  @media (max-width: 768px) {
+    width: 100vw;
+  }
+}
+
+.hide-btn {
+  display: none;
+  align-self: center;
+  padding: 2rem 0;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
+
+  background: #adadad;
+  background: var(--chakra-colors-bg-emphasized);
+  cursor: pointer;
+
+  font-size: 1rem;
+  writing-mode: vertical-rl;
+  font-weight: 600;
+  letter-spacing: 0.06rem;
+
+  @media (min-width: 768px) {
+    display: block;
+  }
+}
+
+.closed {
+  width: 0;
+  padding: 0;
+}

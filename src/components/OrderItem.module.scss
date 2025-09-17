@@ -1,0 +1,50 @@
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  background: white;
+
+  &__photo-wrapper {
+    width: 0;
+    min-width: 35%;
+    position: relative;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 0 2px rgb(121, 121, 121);
+		aspect-ratio: 1.75;
+  }
+
+  &__photo {
+		position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &__info {
+    padding-top: 0.25rem;
+    flex-grow: 1;
+    justify-content: space-between;
+    display: flex;
+    gap: 1rem;
+
+    font-size: 1rem;
+  }
+
+  &__title {
+    font-size: 1.25rem;
+  }
+	
+	@media (min-width: 500px) {
+		&__title {
+			font-size: 2rem;
+		}
+
+		&__info {
+    padding-top: 1.25rem;
+    font-size: 1.25rem;
+  }
+	}
+}

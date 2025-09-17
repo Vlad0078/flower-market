@@ -1,0 +1,56 @@
+{
+  "header": {
+    "shop": "Магазин",
+    "shopping-cart": "Кошик"
+  },
+  "header-menu": "Меню",
+  "flower": {
+    "buy-now": "Придбати",
+    "add-to-cart": "В кошик",
+    "search-placeholder": "Шукати квіти"
+  },
+  "loading": "Завантажується",
+  "search-form": {
+    "search-btn": "Пошук"
+  },
+  "sort-options": {
+    "price": "Сортувати за ціною",
+    "date": "Сортувати за датою",
+    "date--short": "За датою",
+    "price--short": "За ціною"
+  },
+  "stores": {
+    "hide-stores-btn": "Приховати",
+    "show-stores-btn": "Магазини"
+  },
+  "store": {
+    "search-placeholder": "Шукати магазин"
+  },
+  "cart-form": {
+    "phone": "Телефон",
+    "email": "Електронна пошта",
+    "invalid-email": "Введіть дійсну адресу електронної пошти",
+    "invalid-phone": "Введіть дійсний номер телефону",
+    "name-placeholder": "Вася Пупкін",
+    "invalid-name": "Будь ласка, введіть своє їм'я",
+    "name": "Ваше ім'я",
+    "address": "Адреса доставки",
+    "address-placeholder": "вулиця Пушкіна, будинок Колотушкіна",
+    "invalid-address": "Введіть дійсну адресу доставки",
+    "order-btn": "Замовити",
+    "total": "Вартість"
+  },
+  "currency": {
+    "uah": "грн."
+  },
+  "cart": {
+    "qty-label": "Кількість"
+  },
+  "order-details-page": {
+    "order": "Замовлення",
+    "title": "Деталі замовлення",
+    "total": "Сума",
+    "delivery-address": "Адреса доставки",
+    "date": "Дата"
+  }
+}

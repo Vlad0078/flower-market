@@ -1,0 +1,9 @@
+.address-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+
+  @media (min-width: 1080px) {
+    gap: 1.5rem;
+  }
+}
