@@ -11,7 +11,7 @@ import { useMediaQuery } from "@chakra-ui/react";
 const StoreList: React.FC = () => {
   const { t, i18n } = useTranslation();
 
-  const { activeStoreId, storeListOpen, storeSearchQuery } = useStore();
+  const { activeStoreId, storeListOpen, storeSearchQuery, storeLoadingStage } = useStore();
 
   const [isLargerThan768] = useMediaQuery(["(min-width: 768px)"]);
 
@@ -42,20 +42,24 @@ const StoreList: React.FC = () => {
           <div className={`${styles["stores-box-shadow"]} box-shadow`}></div>
 
           <section className={`${styles["store-list"]} ${!storeListOpen ? styles["closed"] : ""}`}>
-            {stores.map((store, index) => (
-              <StoreCard
-                key={index}
-                _id={store._id}
-                name={store.name}
-                photo={store.photo}
-                address={store.address}
-                active={store._id === activeStoreId}
-                onClick={() => {
-                  setActiveStore(store._id);
-                  if (!isLargerThan768) toggleStoreList(false);
-                }}
-              />
-            ))}
+            {stores.length > 0 ? (
+              stores.map((store, index) => (
+                <StoreCard
+                  key={index}
+                  _id={store._id}
+                  name={store.name}
+                  photo={store.photo}
+                  address={store.address}
+                  active={store._id === activeStoreId}
+                  onClick={() => {
+                    setActiveStore(store._id);
+                    if (!isLargerThan768) toggleStoreList(false);
+                  }}
+                />
+              ))
+            ) : storeLoadingStage === "loaded" || storeLoadingStage === "failed" ? (
+								<p className={styles["list-empty-text"]}>{ t("stores.no-stores-found")}</p>
+            ) : null}
           </section>
         </div>
 

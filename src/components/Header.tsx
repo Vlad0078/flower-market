@@ -4,11 +4,12 @@ import { useTranslation } from "react-i18next";
 import styles from "./Header.module.scss";
 import { Link } from "@chakra-ui/react";
 import { RiArrowLeftLine } from "react-icons/ri";
-import { toggleStoreList } from "@/store/store";
+import { toggleStoreList, useCartCounter } from "@/store/store";
 
 const Header: React.FC = () => {
   const { t, i18n } = useTranslation();
 
+  const cartCounter = useCartCounter();
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -24,6 +25,7 @@ const Header: React.FC = () => {
 
         <NavLink className={`${styles.navlink} ${styles["hidden-on-small-screen"]}`} to={"/cart"}>
           <Link as="button">{t("header.shopping-cart")}</Link>
+          {cartCounter > 0 ? <span className={styles.counter}>{cartCounter}</span> : null}
         </NavLink>
 
         <div className={`${styles.delimiter} ${styles["hidden-on-large-screen"]}`}></div>
@@ -55,6 +57,7 @@ const Header: React.FC = () => {
             onClick={() => setMenuOpen(false)}
           >
             {t("header.shopping-cart")}
+            {cartCounter > 0 ? <span className={styles.counter}>{cartCounter}</span> : null}
           </NavLink>
         </div>
       </div>

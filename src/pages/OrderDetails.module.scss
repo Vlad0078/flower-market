@@ -59,7 +59,14 @@
     font-size: 3rem;
   }
 
-	.order-number {
-  font-size: 2rem;
+  .order-number {
+    font-size: 2rem;
+  }
 }
+
+.error-info {
+	color: var(--chakra-colors-fg-error);
+	text-align: center;
+	font-size: 2.5rem;
+	font-weight: 500;
 }

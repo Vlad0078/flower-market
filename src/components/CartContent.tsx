@@ -3,16 +3,18 @@ import type Flower from "@/types/Flower";
 import React, { type HTMLAttributes } from "react";
 import CartItem from "./CartItem";
 import styles from "./CartContent.module.scss";
+import { useTranslation } from "react-i18next";
 
 interface CartContentProps extends HTMLAttributes<HTMLDivElement> {
-	flowers: Flower[]
+  flowers: Flower[];
 }
 
-const CartContent: React.FC<CartContentProps> = ({flowers}) => {
+const CartContent: React.FC<CartContentProps> = ({ flowers }) => {
+	const {t} = useTranslation()
 
-	const { cart } = useStore();
+  const { cart } = useStore();
 
-  return (
+  return Object.keys(cart).length ? (
     <div className={styles["cart-content"]}>
       {Object.entries(cart).map((item) => {
         const flower = flowers.find((flower) => flower._id === item[1].flowerId);
@@ -31,6 +33,8 @@ const CartContent: React.FC<CartContentProps> = ({flowers}) => {
         );
       })}
     </div>
+  ) : (
+    <p className={styles["cart-empty-text"]}>{t("cart.cart-empty")}</p>
   );
 };
 

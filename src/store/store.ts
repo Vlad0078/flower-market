@@ -3,9 +3,10 @@ import { create } from "zustand";
 
 type LoadingStage = "initial" | "loading" | "loaded" | "failed";
 
-type Cart = Record<string, { flowerId: string; qty: number }>;
+type Cart = Record<string, { flowerId: string; qty: number, price: number }>;
 
 type State = {
+  token?: string;
   storeListOpen: boolean;
   activeStoreId?: string;
   storeSearchQuery?: string;
@@ -20,17 +21,13 @@ type State = {
 
 // * INITIAL
 const initialState: State = {
+  token: localStorage.getItem("token") ?? undefined,
   storeListOpen: true,
   storeLoadingStage: "initial",
   flowersLoadingStage: "initial",
   flowersSortOption: "date",
   flowersSortOrder: -1,
-  cart: (() => {
-    const localCart = localStorage.getItem("cart");
-    // console.log();
-
-    return localCart ? JSON.parse(localCart).cart : {};
-  })(),
+  cart: JSON.parse(localStorage.getItem("cart") ?? "{}"),
   favFlowerIds: [],
 };
 
@@ -38,6 +35,11 @@ const initialState: State = {
 const useStore = create<State>(() => initialState);
 
 // # ************* ACTIONS ************* # //
+
+const setToken = (token: string) =>
+  useStore.setState({
+    token,
+  });
 
 const setActiveStore = (storeId: string) =>
   useStore.setState({
@@ -83,23 +85,16 @@ const toggleFlowersSortDecs = (sortOrder?: -1 | 1) => {
 
 // # ************* CART ACTIONS ************* # //
 
-const addToCart = (flowerId: string) =>
+const addToCart = (flowerId: string, price: number) =>
   useStore.setState((state) => {
     const cartItem = Object.entries(state.cart).find(([, value]) => value.flowerId === flowerId);
 
-    const cartKeys = Object.keys(state.cart);
-    const lastCartKey = cartKeys[cartKeys.length - 1] ?? 0;
-
-    const cartItemKey = cartItem ? cartItem[0] : Number(lastCartKey) + 1 + "";
-
     const qty = cartItem ? cartItem[1].qty + 1 : 1;
 
-    const updatedCart = {
-      cart: { ...state.cart, [cartItemKey]: { qty, flowerId } },
-    };
+    const updatedCart = { ...state.cart, [flowerId]: { qty, flowerId, price } };
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    return updatedCart;
+    return { cart: updatedCart };
   });
 
 const removeFromCart = (id: string) =>
@@ -115,15 +110,10 @@ const setCartItemQty = (id: string, qty: number) =>
   useStore.setState((state) => {
     const cartItemCopy = { ...state.cart[id], qty: Math.max(1, qty) };
 
-    const updatedCart = {
-      cart: {
-        ...state.cart,
-        [id]: cartItemCopy,
-      },
-    };
+    const updatedCart = { ...state.cart, [id]: cartItemCopy };
 
     localStorage.setItem("cart", JSON.stringify(updatedCart));
-    return updatedCart;
+    return { cart: updatedCart };
   });
 
 const incrementCartItemQty = (id: string) => {
@@ -136,14 +126,22 @@ const decrementCartItemQty = (id: string) => {
   setCartItemQty(id, itemQty - 1);
 };
 
-const useCartTotalQty = () =>
-  useStore((state) => Object.values(state.cart).reduce((sum, item) => sum + item.qty, 0));
+function useIsInCart(flowerId: string) {
+  return useStore((state) => Boolean(state.cart[flowerId]));
+}
+
+const useCartCounter = () =>
+  useStore((state) => Object.keys(state.cart).length);
 
 const clearCart = () =>
   useStore.setState(() => {
     localStorage.removeItem("cart");
     return { cart: {} };
-  });
+	});
+	
+const useCartTotal = () =>
+  useStore((state) => Object.values(state.cart).reduce((sum, item) => sum + item.qty * item.price, 0));
+
 
 // #favs
 
@@ -163,6 +161,7 @@ const setFavs = (favFlowerIds: string[]) => useStore.setState({ favFlowerIds });
 
 export {
   useStore,
+  setToken,
   setActiveStore,
   toggleStoreList,
   setStoreSearchQuery,
@@ -176,7 +175,9 @@ export {
   setCartItemQty,
   incrementCartItemQty,
   decrementCartItemQty,
-  useCartTotalQty,
+  useIsInCart,
+	useCartCounter,
+	useCartTotal,
   clearCart,
   toggleFav,
   setFavs,

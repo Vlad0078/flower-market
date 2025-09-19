@@ -7,7 +7,8 @@
   "flower": {
     "buy-now": "Buy now",
     "add-to-cart": "Add to cart",
-    "search-placeholder": "Search flowers"
+    "search-placeholder": "Search flowers",
+    "in-cart": "In Cart"
   },
   "loading": "Loading",
   "search-form": {
@@ -21,7 +22,9 @@
   },
   "stores": {
     "hide-stores-btn": "Hide",
-    "show-stores-btn": "Stores"
+    "show-stores-btn": "Stores",
+    "no-stores-found": "Nothing found for your search :(",
+    "no-flowers-found": "Nothing found for your search :("
   },
   "store": {
     "search-placeholder": "Search store"
@@ -44,13 +47,16 @@
     "uah": "UAH"
   },
   "cart": {
-    "qty-label": "Quantity"
+    "qty-label": "Quantity",
+    "cart-empty": "Your shopping cart is empty"
   },
   "order-details-page": {
     "title": "Order Details",
     "order": "Order",
     "total": "Total",
     "delivery-address": "Delivery address",
-    "date": "Date"
+    "date": "Date",
+    "no-privileges": "You do not have access to view this order",
+    "wrong-order-id": "Order not found"
   }
 }

@@ -10,13 +10,23 @@ import OrderItem from "@/components/OrderItem";
 const OrderDetails: React.FC = () => {
   const { orderId } = useParams<{ orderId: string }>();
 
+  const [loading, setLoading] = useState(true);
   const [order, setOrder] = useState<Order | undefined>(undefined);
+  const [noPrivilegesError, setNoPrivilegesError] = useState(false);
 
   const { t, i18n } = useTranslation();
 
   useEffect(() => {
-    if (orderId) fetchOrderByOrderId(Number(orderId)).then((order) => setOrder(order));
-  }, [orderId]);
+    if (orderId)
+      fetchOrderByOrderId(Number(orderId)).then((data) => {
+        if (data?.order) {
+          setOrder(data.order);
+        } else if (data?.reason === "no privileges") {
+          setNoPrivilegesError(true);
+        }
+        setLoading(false);
+      });
+  }, [orderId, i18n.language]);
 
   return (
     <div className="screen-container">
@@ -29,7 +39,7 @@ const OrderDetails: React.FC = () => {
           {t("order-details-page.order")} #{orderId}
         </h2>
 
-        {order ? (
+        {loading ? null : order ? (
           <div className={styles["order-info"]}>
             <div className={styles["order-items"]}>
               {order.items.map((item, index) => (
@@ -73,7 +83,13 @@ const OrderDetails: React.FC = () => {
               </p>
             </div>
           </div>
-        ) : null}
+        ) : (
+          <p className={styles["error-info"]}>
+            {noPrivilegesError
+              ? t("order-details-page.no-privileges")
+              : t("order-details-page.wrong-order-id")}
+          </p>
+        )}
       </main>
     </div>
   );

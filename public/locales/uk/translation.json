@@ -7,7 +7,8 @@
   "flower": {
     "buy-now": "Придбати",
     "add-to-cart": "В кошик",
-    "search-placeholder": "Шукати квіти"
+    "search-placeholder": "Шукати квіти",
+    "in-cart": "В кошику"
   },
   "loading": "Завантажується",
   "search-form": {
@@ -21,7 +22,9 @@
   },
   "stores": {
     "hide-stores-btn": "Приховати",
-    "show-stores-btn": "Магазини"
+    "show-stores-btn": "Магазини",
+    "no-stores-found": "За вашим запитом нічого не знайдено :(",
+    "no-flowers-found": "За вашим запитом нічого не знайдено :("
   },
   "store": {
     "search-placeholder": "Шукати магазин"
@@ -44,13 +47,16 @@
     "uah": "грн."
   },
   "cart": {
-    "qty-label": "Кількість"
+    "qty-label": "Кількість",
+    "cart-empty": "Ваш кошик порожній"
   },
   "order-details-page": {
     "order": "Замовлення",
     "title": "Деталі замовлення",
     "total": "Сума",
     "delivery-address": "Адреса доставки",
-    "date": "Дата"
+    "date": "Дата",
+    "no-privileges": "Ви не маєте доступу для перегляду цього замовлення",
+    "wrong-order-id": "Замовлення не знайдено"
   }
 }

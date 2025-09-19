@@ -12,3 +12,9 @@
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   }
 }
+
+.list-empty-text {
+	margin: 2rem 1rem;
+	text-align: center;
+	font-size: 2rem;
+}

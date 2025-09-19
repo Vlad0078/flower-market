@@ -5,7 +5,7 @@ import ClientAddressInfo from "@/components/ClientAddressInfo";
 import { Button, Text, useMediaQuery } from "@chakra-ui/react";
 import { useTranslation } from "react-i18next";
 import CartContent from "@/components/CartContent";
-import { clearCart, useStore } from "@/store/store";
+import { clearCart, useCartTotal, useStore } from "@/store/store";
 import type Flower from "@/types/Flower";
 import { fetchFlowersByIds, saveOrder } from "@/utils/api";
 import { useNavigate } from "react-router-dom";
@@ -17,15 +17,8 @@ const Cart: React.FC = () => {
 
   const [flowers, setFlowers] = useState<Flower[]>([]);
 
-  const { cart } = useStore();
-
-  const cartTotal = useStore((state) =>
-    Object.values(state.cart).reduce(
-      (sum, item) =>
-        sum + item.qty * (flowers.find((flower) => flower._id === item.flowerId)?.price ?? 0),
-      0
-    )
-  );
+	const { cart } = useStore();
+	const cartTotal = useCartTotal()
 
   const [isLargerThan440] = useMediaQuery(["(min-width: 440px)"]);
 
@@ -47,9 +40,9 @@ const Cart: React.FC = () => {
 
     saveOrder(cartItems, name, email, phone, address).then((orderId) => {
       if (orderId) navigate(`/order/${orderId}`);
-		});
-		
-		clearCart()
+    });
+
+    clearCart();
   };
 
   // * fetch flowers

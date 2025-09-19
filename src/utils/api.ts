@@ -2,6 +2,31 @@ import type Store from "@/types/Store";
 import api from "../config/axios";
 import type Flower from "@/types/Flower";
 import type Order from "@/types/Order";
+import type { AxiosResponse } from "axios";
+import { setToken } from "@/store/store";
+import axios from "axios";
+
+// # auth
+const authUser = async () => {
+  try {
+    const result = await api.post<object, AxiosResponse<{ token?: string }>>("/user/auth", {
+      createGuest: true,
+    });
+
+    const token = result.data.token;
+
+    if (result.status === 200) {
+      if (token) {
+        setToken(token);
+        localStorage.setItem("token", token);
+      }
+    } else {
+      console.error(`Server responded with status 1 ${result.status}:`, result.data);
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 // # stores
 
@@ -73,20 +98,14 @@ const saveOrder = async (
   address: string
 ) => {
   try {
-    const token = localStorage.getItem("token");
-
-    const result = await api.post<{ orderId: string }>(
-      "/order/save",
-      {
-        orderItems,
-        name,
-        email,
-        phone,
-        address,
-        timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-      },
-      { headers: token ? { Authorization: `Bearer ${token}` } : {} }
-    );
+    const result = await api.post<{ orderId: string }>("/order/save", {
+      orderItems,
+      name,
+      email,
+      phone,
+      address,
+      timeZone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    });
 
     if (result.status === 200) {
       return result.data.orderId;
@@ -104,31 +123,20 @@ interface OrderResponse {
 
 const fetchOrderByOrderId = async (orderId: number) => {
   try {
-    const token = localStorage.getItem("token");
-
-    const result = await api.get<OrderResponse>(`/order/order_${orderId}`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
-
-    if (result.status === 200) {
-      return result.data.order;
-    } else {
-      console.error(`Server responded with status ${result.status}:`, result.data);
-    }
+    const result = await api.get<OrderResponse>(`/order/order_${orderId}`);
+    return { success: true, order: result.data.order };
   } catch (error) {
-    console.error(error);
+    if (axios.isAxiosError(error)) {
+      if (error.response?.status === 403) {
+        return { success: false, reason: "no privileges" };
+      }
+    }
   }
 };
 
 const addFlowerToFavs = async (id: string) => {
   try {
-    const token = localStorage.getItem("token");
-
-    const result = await api.post<{ orderId: string }>(
-      "/flowers/add-to-fav",
-      { id },
-      { headers: token ? { Authorization: `Bearer ${token}` } : {} }
-    );
+    const result = await api.post<{ orderId: string }>("/flowers/add-to-fav", { flowerId: id });
 
     if (result.status === 200) {
       return true;
@@ -142,11 +150,7 @@ const addFlowerToFavs = async (id: string) => {
 
 const fetchFavFlowerIds = async () => {
   try {
-    const token = localStorage.getItem("token");
-
-    const result = await api.get("/flowers/favs", {
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-    });
+    const result = await api.get<{ favoriteFlowers: string[] }>("/flowers/favs");
 
     if (result.status === 200) {
       return result.data.favoriteFlowers;
@@ -159,6 +163,7 @@ const fetchFavFlowerIds = async () => {
 };
 
 export {
+  authUser,
   fetchStores,
   fetchFlowers,
   fetchFlowersByIds,

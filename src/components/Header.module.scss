@@ -92,3 +92,17 @@
 
   background: rgb(82, 82, 82);
 }
+
+.navlink {
+  position: relative;
+}
+
+.counter {
+  font-size: 1.125rem;
+	font-weight: 500;
+  background-color: #16b852;
+  color: var(--chakra-colors-fg-inverted);
+  border-radius: 1rem;
+  padding: 0 0.625rem;
+  margin: 0 0.5rem;
+}
